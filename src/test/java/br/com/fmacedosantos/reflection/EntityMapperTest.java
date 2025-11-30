@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TransformatorTest {
+public class EntityMapperTest {
 
-    Transformator transformator;
+    EntityMapper entityMapper;
 
     @BeforeEach
     public void setUp(){
-        transformator = new Transformator();
+        entityMapper = new EntityMapper();
     }
 
     @Test
@@ -22,7 +22,7 @@ public class TransformatorTest {
         Pessoa pessoa = PessoaFixture.buildPessoa();
 
         // Act
-        PessoaDTO pessoaDTO = transformator.transform(pessoa);
+        PessoaDTO pessoaDTO = entityMapper.transform(pessoa);
 
         // Assert
         Assertions.assertAll("Verify DTO properties",
@@ -40,7 +40,7 @@ public class TransformatorTest {
 
         // Act & Assert
         Assertions.assertThrows(ClassNotFoundException.class, () -> {
-            transformator.transform(endereco);
+            entityMapper.transform(endereco);
         });
     }
 
@@ -51,7 +51,7 @@ public class TransformatorTest {
         Pessoa pessoaSemCpf = PessoaFixture.buildPessoaSemCpf();
 
         // Act
-        PessoaDTO pessoaDTO = transformator.transform(pessoaSemCpf);
+        PessoaDTO pessoaDTO = entityMapper.transform(pessoaSemCpf);
 
         // Assert
         Assertions.assertAll("Verify DTO properties handling nulls",

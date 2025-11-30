@@ -1,6 +1,6 @@
 package br.com.fmacedosantos;
 
-import br.com.fmacedosantos.reflection.Transformator;
+import br.com.fmacedosantos.reflection.EntityMapper;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -11,7 +11,7 @@ public class PessoaService {
         PessoaDTO pessoaDTO = null;
 
         try {
-            pessoaDTO = new Transformator().transform(pessoa);
+            pessoaDTO = new EntityMapper().transform(pessoa);
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException |
                  IllegalAccessException e) {
             e.printStackTrace();
