@@ -2,7 +2,6 @@ package br.com.fmacedosantos.reflection;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 public class Transformator {
 
@@ -15,17 +14,18 @@ public class Transformator {
         Field[] sourceFields = source.getDeclaredFields();
         Field[] targetFields = target.getDeclaredFields();
 
-        Arrays.stream(sourceFields).forEach(sourceField -> {
-            Arrays.stream(targetFields).forEach(targetField -> {
+        for (Field sourceField : sourceFields) {
+            for (Field targetField : targetFields) {
                 if (validate(sourceField, targetField)) {
                     try {
                         targetField.set(targetClass, sourceField.get(input));
+                        break;
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
                 }
-            });
-        });
+            }
+        }
 
         return targetClass;
     }
