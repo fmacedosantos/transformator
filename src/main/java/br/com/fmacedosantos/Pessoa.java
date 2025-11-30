@@ -12,6 +12,10 @@ public class Pessoa {
         this.cpf = cpf;
     }
 
+    public Pessoa(String nome) {
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

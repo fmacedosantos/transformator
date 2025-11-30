@@ -37,8 +37,25 @@ public class TransformatorTest {
     @Test
     @DisplayName("Should throw ClassNotFoundException when the target DTO class does not exist")
     public void shouldThrowExceptionWhenDtoClassIsMissing(){
+        // Act & Assert
         Assertions.assertThrows(ClassNotFoundException.class, () -> {
             transformator.transform(endereco);
         });
+    }
+
+    @Test
+    @DisplayName("Should transform Entity to DTO preserving null values when source field is null")
+    public void shouldTransformEntityToDtoWhenSourceFieldIsNull() throws Exception {
+        // Arrange
+        Pessoa pessoaSemCpf = new Pessoa("João");
+
+        // Act
+        PessoaDTO pessoaDTO = transformator.transform(pessoaSemCpf);
+
+        // Assert
+        Assertions.assertAll("Verify DTO properties handling nulls",
+                () -> Assertions.assertEquals(pessoaSemCpf.getNome(), pessoaDTO.getNome()),
+                () -> Assertions.assertNull(pessoaDTO.getCpf())
+        );
     }
 }
