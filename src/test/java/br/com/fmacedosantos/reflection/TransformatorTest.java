@@ -1,17 +1,12 @@
 package br.com.fmacedosantos.reflection;
 
-import br.com.fmacedosantos.Endereco;
-import br.com.fmacedosantos.Pessoa;
-import br.com.fmacedosantos.PessoaDTO;
+import br.com.fmacedosantos.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class TransformatorTest {
-
-    Pessoa pessoa = new Pessoa(1, "João", "1234");
-    Endereco endereco = new Endereco("Rua 10", 20);
 
     Transformator transformator;
 
@@ -23,6 +18,9 @@ public class TransformatorTest {
     @Test
     @DisplayName("Should transform Entity to DTO ensuring type and field values match")
     public void shouldTransformEntityToDtoWithMatchingValues() throws Exception {
+        // Arrange
+        Pessoa pessoa = PessoaFixture.buildPessoa();
+
         // Act
         PessoaDTO pessoaDTO = transformator.transform(pessoa);
 
@@ -37,6 +35,9 @@ public class TransformatorTest {
     @Test
     @DisplayName("Should throw ClassNotFoundException when the target DTO class does not exist")
     public void shouldThrowExceptionWhenDtoClassIsMissing(){
+        // Arrange
+        Endereco endereco = EnderecoFixture.buildEndereco();
+
         // Act & Assert
         Assertions.assertThrows(ClassNotFoundException.class, () -> {
             transformator.transform(endereco);
@@ -47,7 +48,7 @@ public class TransformatorTest {
     @DisplayName("Should transform Entity to DTO preserving null values when source field is null")
     public void shouldTransformEntityToDtoWhenSourceFieldIsNull() throws Exception {
         // Arrange
-        Pessoa pessoaSemCpf = new Pessoa("João");
+        Pessoa pessoaSemCpf = PessoaFixture.buildPessoaSemCpf();
 
         // Act
         PessoaDTO pessoaDTO = transformator.transform(pessoaSemCpf);
