@@ -1,5 +1,6 @@
 package br.com.fmacedosantos.reflection;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 public class Transformator {
@@ -9,6 +10,9 @@ public class Transformator {
         Class<?> target = Class.forName(source.getName() + "DTO");
 
         O targetClass = (O) target.getDeclaredConstructor().newInstance();
+
+        Field[] sourceFields = source.getDeclaredFields();
+        Field[] targetFields = target.getDeclaredFields();
 
         return targetClass;
     }
